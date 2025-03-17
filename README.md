@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# E-Commerce App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+This is a simple ~~todo~~ shopping list application that has all basic CRUD functions of adding, editing, and removing items that are visible on the page.
 
-In the project directory, you can run:
+The app also features a simple generation of list items so that it can be randomly populated with a variety of produce upon initialization (which upon specific request, have been intentionally left to _not_ be persistent via localStorage or any other means)
 
-### `npm start`
+## Running the app
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### From the local environment
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+This was kept simple with the standard create-react-app template, so the default command will do:
 
-### `npm test`
+```bash
+npm start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### From GitHub Pages
 
-### `npm run build`
+[Click the link here to visit the live version of the app!](https://avasconcelos114.github.io/ecommerce_test)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Considerations
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Libraries Used
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The main needs of production applications with regards to their scalability is having a way to gracefully manage more **state**, and avoid running into visual glitches due to conflicting styles or classnames, as such I employed 2 libraries in the simple implementation of this app:
 
-### `npm run eject`
+- Redux Toolkit (a very much simplified version of react-redux)
+- Emotion
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+While I could have also used SCSS to have a well-structured way to add scoped values with little efford, I appreciate how easy Emotion (or other CSS-in-JS libraries like styled-components) allow you to have application state affect the visual layer of the application in a seamless way.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Validation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+While it was not left explicitly clear on what kinds of input validation would be needed, I made sure that the `amount` inputs could only receive numerical values, while the `name` field is more flexible as many products may contain numbers or a few special characters within them
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Mobile Support?
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+While stated as not being necessary, I find that using flexbox the right way allows for a design that at least gracefully adapts itself to the sizes of many screens, so I opted to make use of them (in a real scenario, I would have gone as far as establishing defined breakpoints and have the UI adapt more seamlessly with its layouts and certain font sizes)
