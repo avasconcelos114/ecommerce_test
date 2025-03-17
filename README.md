@@ -31,6 +31,10 @@ The main needs of production applications with regards to their scalability is h
 
 While I could have also used SCSS to have a well-structured way to add scoped values with little efford, I appreciate how easy Emotion (or other CSS-in-JS libraries like styled-components) allow you to have application state affect the visual layer of the application in a seamless way.
 
+### Environment Setup
+
+Given the quick nature of this project, I purposefuly neglected to employ some quality-of-life tooling/configuration like path aliasing or prettier since they can sometimes become a bit of a time sink, so I've chosen to prioritize getting the features done quickly
+
 ### Validation
 
 While it was not left explicitly clear on what kinds of input validation would be needed, I made sure that the `amount` inputs could only receive numerical values, while the `name` field is more flexible as many products may contain numbers or a few special characters within them

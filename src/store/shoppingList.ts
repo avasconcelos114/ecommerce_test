@@ -1,21 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./index";
-
-interface ShoppingItem {
-  name: string;
-  amount: number;
-}
-
-interface ShoppingListState {
-  items: ShoppingItem[];
-}
+import type { ShoppingItem, ShoppingListState } from "../lib/types";
+import { generateShoppingListInitData } from "../lib/utils";
 
 const initialState: ShoppingListState = {
-  items: [],
+  items: generateShoppingListInitData(),
 };
 
-export const counterSlice = createSlice({
+export const shoppingListSlice = createSlice({
   name: "shoppingList",
   initialState,
   reducers: {
@@ -28,31 +21,30 @@ export const counterSlice = createSlice({
     },
     /**
      * Updates the contents of one of the items on the list based on the received index
-     * @param index - The index of item to be updated
      * @param item - The new value of the shopping item
      */
-    updateItem: (
-      state,
-      action: PayloadAction<{ index: number; item: ShoppingItem }>
-    ) => {
-      const { item, index } = action.payload;
-      state.items[index].name = item.name;
-      state.items[index].amount = item.amount;
+    updateItem: (state, action: PayloadAction<ShoppingItem>) => {
+      const index = state.items.findIndex(
+        (value) => value.id === action.payload.id
+      );
+      if (index) {
+        state.items[index].name = action.payload.name;
+        state.items[index].amount = action.payload.amount;
+      }
     },
     /**
      * Removes an item from the shopping list
-     * @param number - The index of the item in the array (normally would use a unique "ID" but using index for simplicity)
+     * @param string - The ID of the item in the array
      */
-    removeItem: (state, action: PayloadAction<number>) => {
-      const indexToRemove = action.payload;
-      state.items.slice(indexToRemove, indexToRemove + 1);
+    removeItem: (state, action: PayloadAction<string>) => {
+      state.items = state.items.filter((value) => value.id !== action.payload);
     },
   },
 });
 
-export const actions = counterSlice.actions;
+export const { addItem, updateItem, removeItem } = shoppingListSlice.actions;
 
 export const selectShoppingListItems = (state: RootState) =>
   state.shoppingList.items;
 
-export default counterSlice.reducer;
+export default shoppingListSlice.reducer;
