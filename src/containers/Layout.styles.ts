@@ -11,6 +11,17 @@ export const rowStyle = css`
   flex-direction: row;
 `;
 
+export const borderBottomStyle = css`
+  border-bottom: 3px solid #162fa4;
+`;
+
+export const flexStartStyle = css`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: stretch;
+  flex: 1;
+`;
 export const flexCenterStyle = css`
   display: flex;
   justify-content: center;
@@ -29,4 +40,8 @@ export const spaceEvenlyStyle = css`
 
 export const actionColumnStyle = css`
   max-width: 230px;
+`;
+
+export const headingTextStyle = css`
+  font-size: 24px;
 `;

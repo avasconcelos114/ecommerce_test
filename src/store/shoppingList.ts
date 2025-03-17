@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./index";
 import type { ShoppingItem, ShoppingListState } from "../lib/types";
-import { generateShoppingListInitData } from "../lib/utils";
+import { generateShoppingListInitData } from "../lib/utils/testData";
 
 const initialState: ShoppingListState = {
   items: generateShoppingListInitData(),
@@ -27,7 +27,7 @@ export const shoppingListSlice = createSlice({
       const index = state.items.findIndex(
         (value) => value.id === action.payload.id
       );
-      if (index) {
+      if (index > -1) {
         state.items[index].name = action.payload.name;
         state.items[index].amount = action.payload.amount;
       }

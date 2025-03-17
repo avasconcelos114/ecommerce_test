@@ -7,20 +7,22 @@ type Props = {
   value: string;
   type: HTMLInputTypeAttribute;
   onChanged: (value: string) => void;
+  placeholder?: string;
   minLength?: number;
   maxLength?: number;
 };
 
 export default function InputComponent(props: Props) {
-  const { name, value, type, minLength, maxLength, onChanged } = props;
+  const { name, value, type, minLength, maxLength, placeholder, onChanged } = props;
 
   return (
     <input
       type={type}
       name={name}
-      defaultValue={value}
+      value={value}
       minLength={minLength}
       maxLength={maxLength}
+      placeholder={placeholder}
       onChange={(event) => onChanged(event.target.value)}
       css={styles.inputStyle}
     />

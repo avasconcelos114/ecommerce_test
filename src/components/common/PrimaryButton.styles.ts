@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 
 export const primaryButtonStyle = css`
   height: 50px;
+  width: 100%;
   padding: 10px;
   border-radius: 6px;
   border: none;

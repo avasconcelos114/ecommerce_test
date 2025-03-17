@@ -1,4 +1,5 @@
-import type { ShoppingItem } from "./types";
+import type { ShoppingItem } from "../types";
+
 const TEST_DATA_TO_POPULATE = [
   "Milk",
   "Eggs",
@@ -47,7 +48,7 @@ export function generateShoppingListInitData(): ShoppingItem[] {
       result.push({
         id,
         name: TEST_DATA_TO_POPULATE[randomIdx],
-        amount: Math.floor(Math.random() * MAX_AMOUNT),
+        amount: Math.floor(Math.random() * MAX_AMOUNT) + 1,
       });
 
       addedIndexes.push(randomIdx);

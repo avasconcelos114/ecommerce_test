@@ -10,7 +10,7 @@ export default function ShoppingListContainer() {
 
   return (
     <section css={[styles.flexCenterStyle, styles.columnStyle]}>
-      <div css={[styles.spaceEvenlyStyle, styles.rowStyle, styles.marginSm]}>
+      <div css={[styles.spaceEvenlyStyle, styles.rowStyle, styles.marginSm, styles.borderBottomStyle]}>
         <div css={styles.flexCenterStyle}>
           <h3>Name</h3>
         </div>

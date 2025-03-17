@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 
 import HeaderSectionComponent from '../components/HeaderSection';
 import ShoppingList from './ShoppingList/ShoppingList';
+import AddShoppingItem from './AddShoppingItem/AddShoppingItem';
 
 export default function Layout() {
   return (
@@ -16,9 +17,7 @@ export default function Layout() {
     `}>
       <HeaderSectionComponent />
       <ShoppingList />
-      <section>
-
-      </section>
+      <AddShoppingItem />
     </main>
   );
 }

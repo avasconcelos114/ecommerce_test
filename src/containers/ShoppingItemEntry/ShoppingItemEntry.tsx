@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { useMemo, useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppDispatch } from '../../lib/hooks/store';
 import { removeItem, updateItem, addItem } from '../../store/shoppingList';
 
 import PrimaryButton from "../../components/common/PrimaryButton";
 import Input from "../../components/common/Input";
-import * as styles from '../Layout.styles';
-
+import { validateShoppingItemName } from '../../lib/utils/validation';
 import type { ShoppingItem } from "../../lib/types";
+import * as styles from '../Layout.styles';
 
 type Props = {
   item?: ShoppingItem,
@@ -17,6 +17,12 @@ type Props = {
 export default function ShoppingItemEntryContainer(props: Props) {
   const { item, type } = props;
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (item) {
+      setLocalItem(item);
+    }
+  }, [item]);
 
   const [localItem, setLocalItem] = useState<ShoppingItem>({
     id: item?.id || '',
@@ -35,15 +41,27 @@ export default function ShoppingItemEntryContainer(props: Props) {
       amount: localItem?.amount || 0,
     };
     dispatch(addItem(newItem));
+
+    // Resetting values
+    updateValues({
+      id: '',
+      name: '',
+      amount: 0,
+    });
   }
 
   function onNameFieldUpdated(name: string) {
-    const updatedItem: ShoppingItem = {
-      id: localItem.id,
-      name: name,
-      amount: localItem.amount,
+    console.log(name);
+    const isNameValid: boolean = validateShoppingItemName(name);
+    console.log(isNameValid);
+    if (isNameValid) {
+      const updatedItem: ShoppingItem = {
+        id: localItem.id,
+        name,
+        amount: localItem.amount,
+      }
+      updateValues(updatedItem);
     }
-    updateValues(updatedItem);
   }
 
   function onAmountFieldUpdated(amount: string) {
@@ -70,7 +88,7 @@ export default function ShoppingItemEntryContainer(props: Props) {
     }
   }
 
-  const actionContents = useMemo(() => {
+  const getActionContents = () => {
     switch (type) {
       case 'add':
         return <PrimaryButton label='Add' type='neutral' action={onClickAdd} />;
@@ -79,19 +97,19 @@ export default function ShoppingItemEntryContainer(props: Props) {
       default:
         return <div></div>;
     }
-  }, [type]);
+  }
 
   return (
     <div css={[styles.spaceEvenlyStyle, styles.rowStyle, styles.marginSm]}>
       <div css={[styles.flexCenterStyle, styles.marginSm]}>
-        <Input name='name' value={localItem.name} type='text' onChanged={onNameFieldUpdated} />
+        <Input name='name' value={localItem.name} type='text' placeholder="Input name here" onChanged={onNameFieldUpdated} />
       </div>
       <div css={[styles.flexCenterStyle, styles.marginSm]}>
         <Input name='amount' value={`${localItem.amount}`} type='number' onChanged={onAmountFieldUpdated} />
       </div>
       <div css={[styles.flexCenterStyle, styles.actionColumnStyle]}>
         <div css={[styles.flexCenterStyle]}>
-          {actionContents}
+          {getActionContents()}
         </div>
       </div>
     </div>
